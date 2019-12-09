@@ -150,7 +150,7 @@ $ git remote -v
 원격 저장소에 업로드 하기 위해서는 push 명령어가 필요하다.
 
 ```bash
-$ git push -u origin master
+$ git push origin master
 Enumerating objects: 3, done.
 Counting objects: 100% (3/3), done.
 Delta compression using up to 8 threads
