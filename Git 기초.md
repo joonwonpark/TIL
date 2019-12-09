@@ -20,6 +20,22 @@ $ git config --global user.email {crboy7@naver.com}
 
 $  git config --global -l
 
+### gitignore
+
+프로젝트를 진행할 때, git으로 관리하지 않을 파일 혹은 폴더들을 설정할 수 있다.
+
+*.xlsx 				  			#  확장자가 xlsx 인 파일
+
+a.txt 								#  a.txt 파일
+
+.ipynb_checkpoints/  	  # .ipynb_checkpoints 폴더
+
+프로젝트 시작시 어떠한 내용을 담아야 할지 모르겠다면, 
+
+[gitignore](https://www.gitignore.io/)
+
+
+
 # 로컬 저장소에서 활용하기
 
 ##  1. git 저장소 설정
