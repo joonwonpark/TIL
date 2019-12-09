@@ -41,7 +41,7 @@ git에서 커밋할 대상 파일을 staging area 로 이동시키는 명령어�
 
 ```bash
 $ git add a.txt #특정 파일을 stage
-$ git add imagers/ #특정 폴더를 stage
+$ git add images/ #특정 폴더를 stage
 $ git add . # 모든디렉토리 파일 및 폴더를 stage
 ```
 
