@@ -1,0 +1,21 @@
+@startuml
+node "Client" {
+    agent Browser
+    node "VueFramework" {
+        (VueRouter)
+        [Components]
+        node "VueStore" {
+            [State]
+            [Mutations]
+            [Actions]
+        }
+    }
+}
+Browser --> VueRouter : URI
+Browser -> Components : Event
+VueRouter --> Components
+VueStore --> Components
+State <- Mutations
+State <-- Actions
+Mutations <- Actions
+@enduml

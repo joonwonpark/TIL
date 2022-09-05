@@ -1,0 +1,24 @@
+@startuml
+node "Server" {
+    node Helper {
+        package CrawlerPacakge {
+            node "MusicCrawler"
+            node "NewsCrawler"
+            node "Crawler" 
+        }
+        node "Youtube Search API" as YSA
+    }
+    node "REST API" as REST {
+        node Service
+        node Repository
+        node RestController
+    }
+    database H2
+}
+RestController <-- Service
+Service <-- Repository
+Service <- Helper
+Repository <-> H2
+Crawler <|-- MusicCrawler
+Crawler <|-- NewsCrawler
+@enduml

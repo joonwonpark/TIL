@@ -1,0 +1,54 @@
+@startuml nwServer
+skinparam backgroundColor #EEEBDC
+
+!include <cloudinsight/java>
+!include <cloudinsight/tomcat>
+!include <cloudinsight/postgresql>
+!include <cloudinsight/redis>
+!include <cloudinsight/rabbitmq>
+!include <cloudinsight/server>
+!include <cloudinsight/linux>
+
+node "<$server>\n  NW Server" as NW_Server {
+    cloud Gateway #SkyBlue
+
+    node "<$linux>\n  CentOS7" as CentOS7{
+        package ChirpStack {
+            [ChirpStack_Gateway_Bridge]
+            queue "<$rabbitmq>\n  rabbitmq" as MQTT_Broker 
+            [ChirpStack_Network_Server]
+            [ChirpStack_Application_Server]
+        }
+        rectangle database{
+            database "<$postgresql>\npostgresql" as PostgreSQL
+            database "<$redis>\n  redis" as Redis
+        }
+    database InfluxDB
+    package Application {
+    (Consumer1)
+    (Consumer2)
+    (Consumer3)
+    }
+    rectangle "<$java>\n  JAVA" as JAVA
+    rectangle "<$tomcat>\ntomcat" as tomcat
+}
+
+Gateway <-[bold]-> ChirpStack_Gateway_Bridge : UDP
+ChirpStack_Gateway_Bridge <--> MQTT_Broker : MQTT
+ChirpStack_Gateway_Bridge -- ChirpStack_Network_Server
+MQTT_Broker <-> ChirpStack_Network_Server
+ChirpStack_Network_Server <--> ChirpStack_Application_Server
+ChirpStack_Application_Server <--> InfluxDB : Integration
+MQTT_Broker <--> Consumer1
+MQTT_Broker <--> Consumer2
+MQTT_Broker <--> Consumer3
+JAVA <-> InfluxDB
+tomcat <-> JAVA
+
+Redis -right- ChirpStack_Network_Server
+Redis -right- ChirpStack_Application_Server
+PostgreSQL -right- ChirpStack_Network_Server
+PostgreSQL -right- ChirpStack_Application_Server
+PostgreSQL -[hidden]- Redis
+
+@enduml
